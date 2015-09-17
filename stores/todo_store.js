@@ -4,14 +4,14 @@ import uuid from 'node-uuid'
 window.ReactAddons = ReactAddons
 
 let TodoStore = {
-  tasks: [],
+  tasks: getLocal(),
   changeEvent: new Event('onChangeTodoStore'),
   add(task) {
     this.tasks.push(Task(task))
     window.dispatchEvent(this.changeEvent)
     return this.tasks
   },
-  onChange(cb) { 
+  onChange(cb) {
     window.addEventListener('onChangeTodoStore', cb, false)
   },
   remove(task) {
@@ -34,7 +34,7 @@ let TodoStore = {
   get(taskIndex) {
     return this.tasks[taskID]
   },
-  getAll(sort = 'default') {  
+  getAll(sort = 'default') {
     this.tasks = this.tasks.sort(function(a,b) {
       if(a.status > b.status)
         return -1
@@ -45,12 +45,28 @@ let TodoStore = {
     return this.tasks
   },
   UNDONE: 'undone',
-  DONE: 'done'
+  DONE: 'done',
+  syncLocal: setLocal()
+}
+
+function setLocal() {
+  window.addEventListener('onChangeTodoStore', function(e) {
+    window.localStorage.setItem('tasks', JSON.stringify(TodoStore.getAll()))
+  })
+}
+
+function getLocal() {
+  var localTask = window.localStorage.getItem('tasks')
+  if(typeof localTask === 'undefined' || localTask === '' || localTask === null) {
+    return []
+  } else {
+    return JSON.parse(localTask)
+  }
 }
 
 function findTaskIndex(task) {
-  return TodoStore.tasks.findIndex(function(element) { 
-    return task.id === element.id 
+  return TodoStore.tasks.findIndex(function(element) {
+    return task.id === element.id
   })
 }
 
