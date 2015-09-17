@@ -85,3 +85,10 @@
 	color: white;
 	line-height: 1em;
 }
+
+@media screen and (max-width: 780px) {
+	#TodoApp {
+		margin: 2em auto;
+		width: 90%;
+	}
+}
