@@ -11,7 +11,7 @@ paths = {
   source: ['./build/js/todo-app.js']
 }
 
-gulp.task('serve', serve({
+gulp.task('serve', ['build'], serve({
   root: ['build'],
   port: 9000,
 }));
