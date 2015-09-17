@@ -1,0 +1,94 @@
+
+#TodoApp {
+	font-family: 'Lato', sans-serif;
+	font-weight: 300;
+	margin: 10em auto;
+	width: 400px;
+}
+
+.task-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	transition: all 500ms ease;
+}
+
+.todo-form {
+	margin: 2em 0;
+}
+
+.todo-form input {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	padding: 1em 1.5em;
+}
+
+.task {
+	padding: 0.4em 0;
+	background-color: #ecf0f1;
+	border-bottom: 1px solid #95a5a6;
+	transition: all 500ms ease;
+}
+
+.task .task-title,
+.task .task-status,
+.task .task-remove,
+.task .task-status-toggle {
+	display: inline-block;
+	padding: 0.1em 0.5em;
+	margin: 0.3em;
+}
+
+.task .task-title {}
+
+.task .task-status-toggle {
+	margin-left: 1em;
+}
+
+.task .task-status-toggle {
+	visibility: hidden;
+	width: 0;
+	height: 0;
+}
+
+.task .task-status-toggle + label {
+	display: inline-block;
+	background-color: white;
+	border: 0.2em solid #95a5a6;
+	border-radius: 100%;
+	padding: 0.5em;
+	position: relative;
+	top: 0.3em;
+}
+
+.task .task-status-toggle:checked + label {
+	background-color: #27ae60;
+	border-color: white;
+}
+
+.task .task-status.status-undone {
+	background-color: #e74c3c;
+	color: white;
+}
+.task .task-status.status-done {
+	background-color: #1abc9c;
+	color: white;
+}
+
+.task .task-remove {
+	float: right;
+	padding: 0.6em;
+	margin-right: 1em;
+	background-color: #e74c3c;
+	border: 0px solid white;
+	color: white;
+	line-height: 1em;
+}
+
+@media screen and (max-width: 780px) {
+	#TodoApp {
+		margin: 2em auto;
+		width: 90%;
+	}
+}
