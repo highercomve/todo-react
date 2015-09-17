@@ -20,7 +20,7 @@ gulp.task('cleanBuild', function() {
   return del(['build'])
 })
 
-gulp.task('copy', ['cleanBuild'],function() {
+gulp.task('copy',function() {
   return gulp.src(paths.client)
         .pipe(gulp.dest(paths.build))
 })
