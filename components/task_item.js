@@ -7,14 +7,14 @@ class TaskItem extends React.Component {
 
   constructor() {
     super()
-    this.state = { title: '', id: 1, status: '' }
+    this.state = { title: '', id: 1, done: '' }
   }
 
   componentDidMount() {
     this.setState({
       title: this.props.task.title,
       id: this.props.task.id,
-      status: this.props.task.status
+      done: this.props.task.done
     })
   }
 
@@ -29,12 +29,11 @@ class TaskItem extends React.Component {
   }
 
   render() {
-    var checkDone = (this.state.status === TodoStore.DONE ) ? true : false
-    var toggleForID = `statusToggle-${this.state.id}`
-    var statusClasses = className({
-      'task-status': true,
-      'status-undone': this.state.status === TodoStore.UNDONE,
-      'status-done': this.state.status === TodoStore.DONE
+    var toggleForID = `doneToggle-${this.state.id}`
+    var doneClasses = className({
+      'task-done': true,
+      'status-undone': this.state.done === TodoStore.UNDONE,
+      'status-done': this.state.done === TodoStore.DONE
     });
     return (
       <li className="task">
@@ -42,7 +41,7 @@ class TaskItem extends React.Component {
           id={toggleForID}
           className="task-status-toggle"
           type="checkbox"
-          checked={checkDone}
+          checked={this.state.done}
           onChange={this.markDone.bind(this)} />
         <label htmlFor={toggleForID}></label>
         <span className="task-title">{ this.state.title }</span>

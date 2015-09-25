@@ -1,9 +1,6 @@
-import ReactAddons from 'react/addons'
 import uuid from 'node-uuid'
 
-window.ReactAddons = ReactAddons
-
-let TodoStore = {
+const TodoStore = {
   tasks: getLocal(),
   changeEvent: new Event('onChangeTodoStore'),
   add(task) {
@@ -26,8 +23,8 @@ let TodoStore = {
   },
   toggleStatus(task) {
     let oldtask = findTask(task)
-    let toggledStatus = (oldtask.status === TodoStore.DONE) ? TodoStore.UNDONE : TodoStore.DONE
-    Object.assign(oldtask, {status: toggledStatus})
+    let toggledStatus = (oldtask.done === TodoStore.DONE) ? TodoStore.UNDONE : TodoStore.DONE
+    Object.assign(oldtask, {done: toggledStatus})
     window.dispatchEvent(this.changeEvent)
     return oldtask
   },
@@ -36,16 +33,12 @@ let TodoStore = {
   },
   getAll(sort = 'default') {
     this.tasks = this.tasks.sort(function(a,b) {
-      if(a.status > b.status)
-        return -1
-      if(a.status < b.status)
-        return 1
-      return 0
+      return a.done - b.done
     }).slice(0)
     return this.tasks
   },
-  UNDONE: 'undone',
-  DONE: 'done',
+  UNDONE: false,
+  DONE: true,
   syncLocal: setLocal()
 }
 
@@ -76,8 +69,8 @@ function findTask(task) {
   })
 }
 
-function Task(title, status = TodoStore.UNDONE) {
-  return { id: uuid.v1(), title: title, status: status}
+function Task(title, done = TodoStore.UNDONE) {
+  return { id: uuid.v1(), title: title, done: done}
 }
 
 export default TodoStore
